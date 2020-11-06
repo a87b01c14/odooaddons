@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+# Part of Odoo. See LICENSE file for full copyright and licensing details.
+
+{
+    'name': 'MES',
+    'version': '14.0.0.0.0',
+    'category': 'Manufacturing/Manufacturing',
+    'summary': 'MES For Odoo14 Community Edition',
+    'sequence': '8',
+    'website': 'https://www.antexgroup.cn',
+    'author': 'Yuxiaosan',
+    'maintainer': 'Odoo Mates',
+    'license': 'LGPL-3',
+    'support': 'antex_yxs@antexgroup.cn',
+    'website': '',
+    'depends': ['account', 'web_widget_colorpicker', 'web_widget_x2many_2d_matrix'],
+    'demo': [],
+    'data': [
+        # 'security/account_security.xml',
+        # 'views/account.xml',
+        'data/sequence.xml',
+        'security/ir.model.access.csv',
+        'views/mes_business_group_views.xml',
+        'views/mes_color_views.xml',
+        'views/mes_process_views.xml',
+        'views/mes_process_template_views.xml',
+        'views/mes_product_views.xml',
+        'views/mes_size_views.xml',
+        'views/mes_order_views.xml',
+        'views/mes_menuitem.xml',
+    ],
+    'installable': True,
+    'application': True,
+    'auto_install': False,
+    'images': [],
+    'qweb': [],
+}
