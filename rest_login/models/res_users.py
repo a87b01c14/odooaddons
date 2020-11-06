@@ -17,7 +17,7 @@ class APIKeysUser(models.Model):
         try:
             return super(APIKeysUser, self)._check_credentials(password, env)
         except AccessDenied:
-            scope = request.params['scope']
+            scope = request.params.get('scope',None)
             if scope:
                 if self.env['res.users.apikeys']._check_credentials(scope=scope, key=password) == self.env.uid:
                     return
