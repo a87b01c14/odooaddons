@@ -47,7 +47,7 @@ odoo.define('web_widget_x2many_multi_selection.multiple_tags', function (require
                     if (self.field.type === 'many2many')
                         self.reinitialize(m2mRecords);
                     else {
-                        self.reinitialize(m2mRecords.pop());
+                        self.reinitialize(m2mRecords.shift());
                         if (!m2mRecords.length)
                             return;
                         var contexts = [];
