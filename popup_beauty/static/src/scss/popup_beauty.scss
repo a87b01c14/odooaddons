@@ -1,0 +1,102 @@
+/*!* Modal Content *!*/
+$msg-types: ("success", "info", "error");
+$msg-colors: () !default;
+$msg-colors: map-merge(
+                (
+                        "success": $success,
+                        "info": $info,
+                        "error": $danger,
+                ),
+                $msg-colors
+);
+.modal_content {
+  left: 50%;
+  margin-left: -200px;
+  width: 400px;
+  position: absolute;
+  background-color: white;
+  padding: 0;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  z-index: 999;
+}
+
+/* Modal Body */
+.modal_body {
+  padding: 12px 16px;
+  text-align: center;
+}
+
+/* Modal Footer */
+.modal_footer {
+  background-color: white;
+  color: white;
+  padding: 20px;
+}
+
+.beauty-popup-but {
+  margin-bottom: 4px;
+  padding: 8px 12px;
+  border-radius: 3px;
+  cursor: pointer;
+  font-family: inherit;
+  text-transform: uppercase;
+  color: white;
+}
+
+.scaledown {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+.beauty-popup-text {
+  margin: 20px auto;
+  display: inline-block;
+}
+
+@each $type in $msg-types {
+  .beauty-popup-#{$type} {
+    position: relative;
+    top: 55px;
+    left: 50%;
+    @include size(120px, 110px);
+
+    background: map-get($msg-colors, $type);
+    color: $white;
+    font-size: 7.8rem;
+    border-radius: 50%;
+    transition: transform 0.2s 0.25s cubic-bezier(.31, .25, .50, 1.50), opacity 0.1s 0.25s ease-in-out;
+  }
+
+  .beauty-popup-but-#{$type} {
+    position: relative;
+    background: map-get($msg-colors, $type);
+    top: 0;
+    width: 20%;
+    margin: {
+      left: 40%;
+      right: 40%
+    }
+
+    &:focus, &:hover {
+      color: $white;
+      background-color: map-get($msg-colors, $type);
+      border-color: map-get($msg-colors, $type);
+    }
+  }
+
+}
+
+/* Add Animation */
+@keyframes animatetop {
+  from {
+    top: -300px;
+    opacity: 0;
+  }
+  to {
+    top: 0;
+    opacity: 1;
+  }
+}
