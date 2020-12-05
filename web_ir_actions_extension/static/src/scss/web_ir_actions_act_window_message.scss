@@ -1,0 +1,40 @@
+/*!* Modal Content *!*/
+$msg-types: ("success", "info", "danger");
+$msg-colors: () !default;
+$msg-colors: map-merge(
+                (
+                        "success": $success,
+                        "info": $info,
+                        "danger": $danger,
+                ),
+                $msg-colors
+);
+.act-window-message {
+  .scaledown {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+
+  .message-text {
+    margin: 20px auto;
+    text-align: center;
+  }
+
+  @each $type in $msg-types {
+    .message-icon-#{$type} {
+      position: relative;
+      text-align: center;
+      top: 65px;
+      left: 50%;
+      @include size(120px, 130px);
+
+      background: map-get($msg-colors, $type);
+      color: $white;
+      font-size: 7.8rem;
+      border-radius: 50%;
+      transition: transform 0.2s 0.25s cubic-bezier(.31, .25, .50, 1.50), opacity 0.1s 0.25s ease-in-out;
+    }
+
+  }
+}
+

@@ -1,0 +1,19 @@
+<templates>
+    <div t-name="web_ir_actions_act_window_message">
+        <div class="act-window-message">
+            <t t-if="message_type == 'success'">
+                <div class="message-icon-success scaledown">&#10003;</div>
+            </t>
+            <t t-if="message_type == 'danger'">
+                <div class="message-icon-danger scaledown">&#10007;</div>
+            </t>
+            <t t-if="message_type == 'info'">
+                <div class="message-icon-info scaledown">&#9432;</div>
+            </t>
+            <div t-attf-class="message-text alert alert-#{message_type}">
+                <t t-esc="message"/>
+            </div>
+
+        </div>
+    </div>
+</templates>
