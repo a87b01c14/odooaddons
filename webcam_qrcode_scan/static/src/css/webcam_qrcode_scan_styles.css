@@ -1,0 +1,5 @@
+.o_qrcode_scanner_widget{display:flex;padding-top:5px;padding-bottom:5px}
+.o_qrcode_scanner_widget .qr_scan_button{margin-left:10px;font-size:18px;}
+.o_qrcode_scanner_widget .message_decode{margin-bottom:0px;}
+#webcam_viewport{position: relative;width:300px;height:250px;}
+#webcam_viewport canvas, #webcam_viewport video {width: 100%;height: 100%;position: absolute;top: 0;left: 0;}

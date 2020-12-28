@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="webcam_qrcode_scan_assets_backend" name="webcam_qrcode_scan_assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/webcam_qrcode_scan/static/src/lib/quagga.min.js"/>
+            <script type="text/javascript" src="/webcam_qrcode_scan/static/src/lib/html5-qrcode.min.js"/>
+            <script type="text/javascript" src="/webcam_qrcode_scan/static/src/js/barcode_scanner_widget.js"/>
+            <link rel="stylesheet" href="/webcam_qrcode_scan/static/src/css/webcam_qrcode_scan_styles.css"/>
+        </xpath>
+    </template>
+
+</odoo>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<templates xml:space="preserve">
+
+    <t t-name="widget_qrcode_scanner">
+        <button class="fa fa-qrcode btn btn-secondary qr_scan_button" title="Scan QRCode"
+                aria-label="Scan QRCode" name="o_start_qr_scan"/>
+    </t>
+
+    <div t-name="device_selector" id="WebCamSelector">
+        <div class="container-fluid my-2">
+            <div>
+                <label for="camera_id">Select A Camera</label>
+                <select class="custom-select custom-select-lg mb-3 o_camera_selector" name="camera_id">
+                    <t t-foreach="devices" t-as="dev">
+                        <option t-att-value="dev.id">
+                            <t t-raw="dev.label or dev.kind"/>
+                        </option>
+                    </t>
+                </select>
+            </div>
+            <div>
+                <label>Barcode</label>
+                <input type="radio" name='scan_code_type' value='1'/>
+                <label>QR Code</label>
+                <input type="radio" name='scan_code_type' value='0' checked="checked"/>
+            </div>
+            <div>
+                <label for="camera_id">Select A Barcode Type</label>
+                <select class="custom-select custom-select-lg mb-3 o_barcode_type_selector" name="reader_id">
+                    <option value="code_128_reader" selected="selected">code_128</option>
+                    <option value="ean_reader">ean</option>
+                    <option value="ean_8_reader">ean_8</option>
+                    <option value="code_39_reader">code_39</option>
+                    <option value="code_39_vin_reader">code_39_vin</option>
+                    <option value="codabar_reader">codabar</option>
+                    <option value="upc_reader">upc</option>
+                    <option value="upc_e_reader">upc_e</option>
+                    <option value="i2of5_reader">i2of5</option>
+                    <option value="2of5_reader">2of5</option>
+                    <option value="code_93_reader">code_93</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+</templates>
