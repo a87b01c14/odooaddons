@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <!-- Media Dialog (allows to choose a local media) -->
+    <div t-extend="wysiwyg.widgets.media">
+        <t t-jquery="ul" t-operation="append">
+            <li t-if="!widget.options.noVideos" class="nav-item"><a t-attf-class="nav-link #{widget.isLocalActive() ? 'active' : ''}" id="editor-media-local-tab" data-toggle="tab" href="#editor-media-local" role="tab" aria-controls="editor-media-local" t-att-aria-selected="widget.isLocalActive().toString()">LocalMedia</a></li>
+        </t>
+        <!-- Tab panes -->
+        <t t-jquery="div.tab-content" t-operation="append">
+            <div t-if="!widget.options.noVideos"
+                 t-attf-class="tab-pane fade #{widget.isLocalActive() ? 'show active': ''}" id="editor-media-local"
+                 role="tabpanel" aria-labelledby="editor-media-local-tab"/>
+        </t>
+
+    </div>
+
+    <!-- Local Media choosing part of the Media Dialog -->
+    <t t-name="wysiwyg.widgets.local.video">
+        <div class="row">
+            <div class="col-lg-6">
+                <t t-call="wysiwyg.widgets.file">
+                    <t t-set="uploadText">Upload a video</t>
+                    <t t-set="searchPlaceholder">Search a video</t>
+                </t>
+            </div>
+            <div id="video-preview" class="col-lg-6 p-3">
+                <div class="o_video_dialog_preview_text small mb-2 d-none">Preview</div>
+                <div class="media_iframe_video">
+                    <div class="media_iframe_video_size"/>
+                    <iframe class="o_video_dialog_iframe" allowfullscreen="allowfullscreen" frameborder="0" src=""/>
+                </div>
+            </div>
+        </div>
+    </t>
+
+    <t t-name="wysiwyg.widgets.video.existing.attachments">
+        <div class="o_we_existing_attachments o_we_documents">
+            <div t-if="!attachments.length" class="o_nocontent_help">
+                <p class="o_empty_folder_image">No Videos found.</p>
+                <p class="o_empty_folder_subtitle">You can upload videos with the button located in the top left of the screen.</p>
+            </div>
+            <div t-else="" class="row mx-auto">
+                <t t-foreach="attachments" t-as="attachment">
+                    <div class="col-2 o_existing_attachment_cell o_we_attachment_highlight my-2"
+                         t-att-data-id="attachment.id">
+                        <t t-call="wysiwyg.widgets.file.existing.remove"/>
+
+                        <div t-att-data-url="attachment.url" role="img" t-att-aria-label="attachment.name"
+                             t-att-title="attachment.name" t-att-data-mimetype="attachment.mimetype"
+                             t-attf-class="o_image d-flex align-items-center justify-content-center"/>
+                        <small class="o_file_name" t-esc="attachment.name"/>
+                    </div>
+                </t>
+            </div>
+        </div>
+    </t>
+</templates>

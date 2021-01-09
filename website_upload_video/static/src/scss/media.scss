@@ -1,0 +1,32 @@
+// MODALS
+body .modal {
+  // SELECT MEDIA
+  .o_select_media_dialog {
+    .modal-body {
+      // VIDEO TAB
+      #editor-media-local {
+        #video-preview {
+          position: relative;
+          @include o-we-preview-box();
+          border: none;
+
+          .media_iframe_video {
+            width: 100%;
+          }
+
+          .o_video_dialog_iframe {
+            @include o-we-preview-content;
+            max-width: 100%;
+            max-height: 100%;
+
+            &.alert {
+              animation: fadeInDownSmall 700ms forwards;
+              margin: 0 auto;
+            }
+          }
+        }
+
+      }
+    }
+  }
+}
