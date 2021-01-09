@@ -14,8 +14,10 @@ odoo.define('website_upload_video.media', function (require) {
         existingAttachmentsTemplate: 'wysiwyg.widgets.video.existing.attachments',
         VIDEO_MIMETYPES: ['video/mp4', 'video/webm', 'video/ogg', 'audio/wav', 'audio/ogg', 'audio/mpeg'],
         noSave: true,
+
         init: function (parent, media, options) {
             this.searchService = 'all';
+            this.isForBgVideo = !!options.isForBgVideo;
             options = _.extend({
                 accept: 'video/*, audio/*',
                 mimetypeDomain: [['mimetype', 'in', this.VIDEO_MIMETYPES]],
@@ -35,6 +37,22 @@ odoo.define('website_upload_video.media', function (require) {
                 }
             }
             return this._super.apply(this, arguments);
+        },
+
+
+        /**
+         * Handles change of the file input: create attachments with the new files
+         * and open the Preview dialog for each of them. Locks the save button until
+         * all new files have been processed.
+         *
+         * @private
+         * @returns {Promise}
+         */
+        _onFileInputChange: function () {
+            const self = this;
+            return this._super.apply(this, arguments).then(function () {
+                self.noSave = true; //don't close the dialog
+            });
         },
         _selectAttachement: function (attachment, save, {type = 'attachment'} = {}) {
             if (attachment.id > 0)
@@ -60,15 +78,16 @@ odoo.define('website_upload_video.media', function (require) {
 
         },
         save: function () {
+            const src=this.$content.attr('src');
             if (this.isForBgVideo) {
-                return Promise.resolve({bgVideoSrc: this.$content.attr('src')});
+                return Promise.resolve({bgVideoSrc: src});
             }
             if (this.$('.o_video_dialog_iframe').is('iframe')) {
                 this.$media = $(
-                    '<div class="media_iframe_video media_local_video" data-oe-expression="' + this.$content.attr('src') + '">' +
+                    '<div class="media_iframe_video media_local_video" data-oe-expression="' + src + '">' +
                     '<div class="css_editable_mode_display">&nbsp;</div>' +
                     '<div class="media_iframe_video_size" contenteditable="false">&nbsp;</div>' +
-                    '<iframe src="' + this.$content.attr('src') + '" frameborder="0" contenteditable="false" allowfullscreen="allowfullscreen"></iframe>' +
+                    '<iframe src="' + src + '" frameborder="0" contenteditable="false" allowfullscreen="allowfullscreen"></iframe>' +
                     '</div>'
                 );
                 this.media = this.$media[0];
@@ -94,7 +113,7 @@ odoo.define('website_upload_video.media', function (require) {
             const allVideoClasses = /(^|\b|\s)(media_local_video)(\s|\b|$)/g;
             const isLocalVideo = this.media.className && this.media.className.match(allVideoClasses);
             if (isLocalVideo) {
-                this.media.className = this.media.className.replace(allVideoClasses, ' ').replace(/(^|\b|\s)(media_iframe_video)(\s|\b|$)/g,'');
+                this.media.className = this.media.className.replace(allVideoClasses, ' ').replace(/(^|\b|\s)(media_iframe_video)(\s|\b|$)/g, '');
                 this.media.innerHTML = '';
             }
         },
