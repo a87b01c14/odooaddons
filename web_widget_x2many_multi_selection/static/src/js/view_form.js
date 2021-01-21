@@ -12,7 +12,7 @@ odoo.define('web_widget_x2many_multi_selection.multiple_tags', function (require
          * @private
          * @returns {Array}
          */
-        _getSearchBlacklist: function () {
+        _getMultiSearchBlacklist: function () {
             return _.pluck(_.pluck(_.pluck(this.getParent().state.data, 'data'), this.name), 'res_id').filter(_.isNumber);
         },
         _searchCreatePopup: function (view, ids, context) {
@@ -20,11 +20,15 @@ odoo.define('web_widget_x2many_multi_selection.multiple_tags', function (require
 
             // Don't include already selected instances in the search domain
             var domain = self.record.getDomain({fieldName: self.name});
-            if (self.field.type === 'many2many' || self.field.type === 'many2one') {
-                var selected_ids = self._getSearchBlacklist();
-                if (selected_ids.length > 0) {
-                    domain.push(['id', 'not in', selected_ids]);
-                }
+            var selected_ids;
+            if (self.field.type === 'many2many') {
+                selected_ids = self._getSearchBlacklist();
+            } else if (self.field.type === 'many2one') {
+                selected_ids = self._getMultiSearchBlacklist();
+
+            }
+            if (selected_ids.length > 0) {
+                domain.push(['id', 'not in', selected_ids]);
             }
             var m2mRecords = [];
             var parentList = self.getParent();
